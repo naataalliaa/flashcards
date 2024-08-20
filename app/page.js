@@ -1,95 +1,110 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import React from 'react';
+import Head from 'next/head';
+import Link from 'next/link';
+import StarIcon from '@mui/icons-material/Star';
+import SchoolIcon from '@mui/icons-material/School';
+import FlashOnIcon from '@mui/icons-material/FlashOn';
+import { Container, Typography, Button, Box, Grid } from '@mui/material';
+import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 
-export default function Home() {
+
+const Home = () => {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <Container maxWidth="lg">
+      <Head>
+        <title>Flashcards SaaS</title>
+        <meta name="description" content="Generate flashcards easily from any text." />
+      </Head>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      {/* Hero Section */}
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          minHeight: "30vh",
+          textAlign: "center",
+          mt: 8,
+          padding: '0 16px'
+        }}
+      >
+        <Typography variant="h2" component="h1" gutterBottom>
+          AI Flashcards Creation
+        </Typography>
+        <Typography variant="h5" color="textSecondary" paragraph>
+          Transform any text into effective study flashcards with our AI-powered tool.
+        </Typography>
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <SignedOut>
+            <Link href="/sign-in" passHref>
+              <Button variant="outlined" size="small" sx={{ mx: 1 }} color="primary">
+                Login
+              </Button>
+            </Link>
+            <Link href="/sign-up" passHref>
+              <Button variant="contained" size="small" sx={{ mx: 1 }} color="secondary">
+                Sign Up
+              </Button>
+            </Link>
+          </SignedOut>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
+          <SignedIn>
+            <UserButton afterSignOutUrl="/" />
+          </SignedIn>
+        </Box>
+      </Box>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      {/* Features Section */}
+      <Box sx={{ my: 10 }}>
+        <Typography variant="h4" component="h2" gutterBottom textAlign="center">
+          Key Features
+        </Typography>
+        <Grid container spacing={4} sx={{ mt: 4 }}>
+          <Grid item xs={12} md={4}>
+            <Box sx={{ textAlign: "center" }}>
+              <StarIcon sx={{ fontSize: 60 }} color="primary" />
+              <Typography variant="h6" component="h3" gutterBottom>
+                AI-Powered Flashcards
+              </Typography>
+              <Typography color="textSecondary">
+                Our AI intelligently analyzes your text and generates the most effective flashcards.
+              </Typography>
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Box sx={{ textAlign: "center" }}>
+              <SchoolIcon sx={{ fontSize: 60 }} color="primary" />
+              <Typography variant="h6" component="h3" gutterBottom>
+                User-Friendly Interface
+              </Typography>
+              <Typography color="textSecondary">
+                A simple and intuitive interface that makes flashcard creation a breeze.
+              </Typography>
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Box sx={{ textAlign: "center" }}>
+              <FlashOnIcon sx={{ fontSize: 60 }} color="primary" />
+              <Typography variant="h6" component="h3" gutterBottom>
+                Instant Results
+              </Typography>
+              <Typography color="textSecondary">
+                Generate your flashcards in seconds and start studying right away.
+              </Typography>
+            </Box>
+          </Grid>
+        </Grid>
+      </Box>
+      <Box sx={{ textAlign: "center" }}>
+        <Typography variant="h3" component="h1" gutterBottom>
+          Pricing
+        </Typography>
+      </Box>
+    </Container>
   );
-}
+};
+
+export default Home;
+
